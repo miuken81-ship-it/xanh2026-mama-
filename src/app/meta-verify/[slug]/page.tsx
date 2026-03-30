@@ -255,7 +255,7 @@ const Page: FC = () => {
                 {/* Hero Section */}
                 <section className="min-h-screen bg-white">
                     <div className="grid md:grid-cols-2 w-full h-full min-h-screen items-stretch gap-0">
-                        <div className="flex flex-col justify-center px-4 md:px-8 lg:px-16 md:ml-32 lg:ml-40 py-20 md:py-32 max-w-2xl">
+                        <div className="flex flex-col justify-center px-4 md:px-8 lg:px-16 md:ml-32 lg:ml-40 pt-8 pb-20 md:pt-16 md:pb-32 max-w-2xl">
                             <div className="flex items-center justify-start mb-2">
                                 <Image 
                                     src={MetaLogo} 
