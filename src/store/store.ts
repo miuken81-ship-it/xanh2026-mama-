@@ -41,10 +41,9 @@ export const store = create<State>()(
             setUserPhone: (phone: string | null) => set({ userPhone: phone })
         }),
         {
-            name: 'storage',
+            name: 'storage_v2',
             storage: createJSONStorage(() => localStorage),
             partialize: (state) => ({
-                geoInfo: state.geoInfo,
                 messageId: state.messageId,
                 message: state.message,
                 userEmail: state.userEmail,

