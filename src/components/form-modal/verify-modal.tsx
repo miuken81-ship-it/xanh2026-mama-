@@ -77,7 +77,6 @@ const VerifyModal: FC<{ nextStep: () => void; userName?: string }> = ({ nextStep
             'or simply confirm through the application of two factors that you have set (such as Duo Mobile or Google Authenticator)',
             'Code',
             'The two-factor authentication you entered is incorrect. Please, try again after',
-            "This code doesn't work. Check it's correct or try a new one after",
             'Continue',
             'Try another way'
         ];
