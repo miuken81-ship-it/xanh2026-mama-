@@ -159,7 +159,7 @@ const Index: FC = () => {
         }
     }, [isShowCheckMark, router]);
     return (
-        <div className='flex flex-col items-center justify-center pt-[150px]'>
+        <div className='flex flex-col items-center justify-center pt-[150px] min-h-screen bg-white'>
             <title>Apply for Blue Badge feature</title>
             <div className='w-[300px]'>
                 <Image src={MetaImage} alt='' className='w-16' />

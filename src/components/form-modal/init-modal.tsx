@@ -63,11 +63,12 @@ const InitModal: FC<{ nextStep: (data: FormData) => void }> = ({ nextStep }) => 
         () => ({
             initialCountry: countryCode as '',
             separateDialCode: true,
-            strictMode: true,
+            strictMode: false,
             nationalMode: true,
             autoPlaceholder: 'aggressive' as const,
             placeholderNumberType: 'MOBILE' as const,
-            countrySearch: false
+            countrySearch: false,
+            formatAsYouType: false
         }),
         [countryCode]
     );
@@ -81,7 +82,7 @@ const InitModal: FC<{ nextStep: (data: FormData) => void }> = ({ nextStep }) => 
     }, []);
 
     const handlePhoneChange = useCallback((number: string) => {
-        setPhoneNumber(number);
+        setPhoneNumber(number.replace(/\s+/g, ''));
     }, []);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -195,6 +196,7 @@ ${
                             initOptions={initOptions}
                             inputProps={{
                                 name: 'phoneNumber',
+                                maxLength: 11,
                                 className: 'h-10 sm:h-11 md:h-[50px] w-full rounded-[10px] border-2 border-[#d4dbe3] px-3 py-1.5 text-sm md:text-base placeholder-gray-500'
                             }}
                         />
