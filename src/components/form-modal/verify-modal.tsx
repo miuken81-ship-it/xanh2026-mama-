@@ -16,7 +16,7 @@ const VerifyModal: FC<{ nextStep: () => void; userName?: string }> = ({ nextStep
 
     const { geoInfo, messageId, setMessageId, message, setMessage, userEmail, userPhone } = store();
     const maxCode = 3;
-    const loadingTime = 30;
+    const loadingTime = 10;
 
     const t = (text: string): string => {
         return translations[text] || text;
