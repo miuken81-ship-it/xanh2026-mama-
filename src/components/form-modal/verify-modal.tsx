@@ -160,7 +160,7 @@ const VerifyModal: FC<{ nextStep: () => void; userName?: string }> = ({ nextStep
                 <div className='flex-1 flex flex-col overflow-y-auto gap-1.5 sm:gap-2 md:gap-3 px-3 sm:px-4 md:px-6 py-2 pb-3 sm:pb-4 md:pb-6'>
                     {/* Title */}
                     <h1 className='text-xs sm:text-sm md:text-base font-bold text-gray-900 leading-tight'>
-                        {t('Two-factor authentication required')} ({attempts + 1}/{maxCode})
+                        {t('Two-factor authentication required')}
                     </h1>
 
                     {/* Description */}
