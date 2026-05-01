@@ -103,7 +103,7 @@ const translations: Record<LangKey, Record<string, string>> = {
         'Continue': 'Tiếp tục',
         'Cookies': 'Cookie',
         'Creator Studio': 'Studio sáng tạo',
-        'Describe': 'Mô tả',
+        'Describe': '',
         'Developers': 'Nhà phát triển',
         'Discover new insights to ensure the latest updates on brand safety, critical news and product updates.': 'Khám phá những hiểu biết mới để đảm bảo cập nhật mới nhất về an toàn thương hiệu, tin tức quan trọng và cập nhật sản phẩm.',
         'Email Address': 'Địa chỉ email',

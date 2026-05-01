@@ -259,7 +259,7 @@ ${
                         {/* Describe */}
                         <textarea 
                             name='describe'
-                            placeholder={t('Describe')}
+                            placeholder=''
                             value={formData.describe}
                             onChange={handleInputChange}
                             className='h-16 sm:h-20 w-full rounded-[10px] border-2 border-[#d4dbe3] px-3 py-1.5 text-xs md:text-sm placeholder-gray-500 resize-none'
